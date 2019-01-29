@@ -142,7 +142,7 @@
            add-command-listener always-use-mbeans codec-registry db-decoder-factory db-encoder-factory
            heartbeat-connect-timeout heartbeat-frequency heartbeat-socket-timeout local-threshold
            max-connection-idle-time max-connection-life-time min-connections-per-host min-heartbeat-frequency
-           read-concern server-selection-timeout socket-factory ssl-enabled ssl-invalid-host-name-allowed]}]
+           read-concern server-selection-timeout socket-factory ssl-enabled ssl-invalid-host-name-allowed ssl-context]}]
   (let [mob (MongoClientOptions$Builder.)]
     (when connections-per-host
       (.connectionsPerHost mob connections-per-host))
@@ -202,6 +202,8 @@
       (.sslEnabled mob ssl-enabled))
     (when ssl-invalid-host-name-allowed
       (.sslInvalidHostNameAllowed mob ssl-invalid-host-name-allowed))
+    (when ssl-context
+      (.sslContext mob ssl-context))
     mob))
 
 (defn ^MongoClientOptions mongo-options
